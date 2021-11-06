@@ -14,7 +14,7 @@
         recreate: yes
         restart_policy: always
         published_ports:
-          - "9000:9000"
+          - "9000:{{ portainer_port }}"
           - "9443:9443"
         volumes:
           - portainer_data:/data

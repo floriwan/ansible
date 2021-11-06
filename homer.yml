@@ -5,7 +5,7 @@
 
     - name: create homer data directory
       file:
-        path: /data/homer
+        path: "{{ homer_data }}"
         state: directory
 
     - name: install homer
@@ -14,11 +14,11 @@
         image: b4bz/homer:latest
         state: started
         published_ports:
-          - "8080:8080"
+          - "8080:{{ homer_port }}"
         volumes:
-          - /data/homer:/www/assets
+          - "{{ homer_data }}:/www/assets"
 
     - name: copy homer dashboard
       ansible.builtin.copy:
-        src: homer_config.yml
-        dest: /data/homer/config.yml
+        src: "{{ homer_dashboard }}"
+        dest: "{{ homer_data }}/config.yml"
