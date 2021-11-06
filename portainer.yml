@@ -1,0 +1,16 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+    - name: install portainer
+      docker_container:
+        name: portainer
+        image: portainer/portainer-ce:latest
+        state: started
+        recreate: yes
+        restart_policy: always
+        published_ports:
+          - "9000:9000"
+          - "9443:9443"
+        volumes:
+          - portainer_data:/data

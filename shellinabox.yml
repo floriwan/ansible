@@ -1,0 +1,11 @@
+- hosts: raspberries
+  become: yes
+
+  vars:
+    pkgstoinstall: [ shellinabox ]
+
+  tasks:
+    - name: Install a list of packages
+      apt:
+        name: "{{ pkgstoinstall }}"
+        update_cache: yes
