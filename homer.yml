@@ -1,0 +1,24 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: create homer data directory
+      file:
+        path: /data/homer
+        state: directory
+
+    - name: install homer
+      docker_container:
+        name: homer
+        image: b4bz/homer:latest
+        state: started
+        published_ports:
+          - "8080:8080"
+        volumes:
+          - /data/homer:/www/assets
+
+    - name: copy homer dashboard
+      ansible.builtin.copy:
+        src: homer_config.yml
+        dest: /data/homer/config.yml

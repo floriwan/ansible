@@ -1,7 +1,9 @@
-[raspberries]
-monolitix.local
-
-[raspberries:vars]
-ansible_connection=ssh
-ansible_user=pi
-
+all:
+  hosts:
+  children:
+    raspberries:
+      hosts:
+        monolitix.local
+      vars:
+        ansible_connection: ssh
+        ansible_user: pi

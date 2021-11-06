@@ -2,6 +2,10 @@
   become: yes
 
   tasks:
+    - name: create portainer volume
+      docker_volume:
+        name: portainer_data
+
     - name: install portainer
       docker_container:
         name: portainer
@@ -14,3 +18,17 @@
           - "9443:9443"
         volumes:
           - portainer_data:/data
+          - /var/run/docker.sock:/var/run/docker.sock
+
+    - name: install portainer agent
+      docker_container:
+        name: portainer_agent
+        image: portainer/agent:latest
+        state: started
+        recreate: yes
+        restart_policy: always
+        published_ports:
+          - "9001:9001"
+        volumes:
+          - /var/lib/docker/volumes:/var/lib/docker/volumes
+          - /var/run/docker.sock:/var/run/docker.sock
