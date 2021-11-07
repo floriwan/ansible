@@ -1,0 +1,18 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: create nextcloud data directory
+      file:
+        path: "{{ nextcloud_data }}"
+        state: directory
+
+    - name: install nextcloud
+      docker_container:
+        name: nextcloud
+        image: nextcloud
+        volumes:
+          - "{{ nextcloud_data }}:/var/www/html"
+        published_ports:
+          - "{{ nextcloud_port }}:80"

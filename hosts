@@ -11,3 +11,8 @@ all:
         homer_data: /data/homer
         homer_port: 8080
         homer_dashboard: homer_dashboard.yml
+        pihole_data: /data/pihole
+        pihole_port: 8081
+        nextcloud_data: /data/nextcloud
+        nextcloud_port: 8082
+

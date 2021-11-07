@@ -64,3 +64,9 @@ services:
         tag: "app"
         url: "http://monolitix.local:9000"
         target: "_blank" # optional html a tag target attribute
+      - name: "nextcloud"
+        logo: "assets/tools/sample.png"
+        subtitle: "file sharing"
+        tag: "app"
+        url: "http://monolitix.local:8082"
+        target: "_blank" # optional html a tag target attribute

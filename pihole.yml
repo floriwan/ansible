@@ -1,0 +1,40 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: create pihole data directory
+      file:
+        path: "{{ pihole_data }}"
+        state: directory
+
+    - name: install pihole
+      docker_container:
+        name: pihole
+        image: pihole/pihole:latest
+        restart_policy: unless-stopped
+        published_ports:
+          - "{{ pihole_port }}:80"
+        env:
+          TZ: "Europe/Berlin"
+          ServerIP: "192.168.2.6"
+          ServerIPv6: "fe80::9ac6:901e:5578:fb31"
+          WEBPASSWORD: "pihole"
+          PIHOLE_DNS_: "208.67.222.222;208.67.220.220"
+          DNSMASQ_LISTENING: "local"
+          DHCP_ACTIVE: "false"
+          #DHCP_START: "192.168.2.30"
+          #DHCP_END: "192.168.2.230"
+          #DHCP_ROUTER: "192.168.2.1"
+          #PIHOLE_DOMAIN: "local"
+          #CAP_NET_ADMIN: "true"
+          #cap_add: "NET_ADMIN"
+        volumes:
+          - "{{ pihole_data }}/pihole/:/etc/pihole"
+          - "{{ pihole_data }}/dnsmasq.d/:/etc/dnsmasq.d/"
+#        network_mode: host
+#        cap_add:
+#          - NET_ADMIN
+
+#B8:27:EB:C3:47:14 	192.168.2.6 	monolitix
+#00:11:32:30:6D:B6 	192.168.2.10 	verleihnix
