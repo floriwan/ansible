@@ -1,0 +1,12 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: install whoogle
+      docker_container:
+        name: whoogle
+        image: benbusby/whoogle-search:latest
+        state: started
+        published_ports:
+          - "{{ whoogle_port }}:5000"

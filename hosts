@@ -16,4 +16,5 @@ all:
         pihole_port: 8081
         nextcloud_data: /data/nextcloud
         nextcloud_port: 8082
+        whoogle_port: 5000
 
