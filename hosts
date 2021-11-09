@@ -4,7 +4,7 @@ all:
     raspberries:
       hosts:
         #monolitix.local
-        microcosmus.local
+        192.168.2.6
       vars:
         ansible_connection: ssh
         ansible_user: pi

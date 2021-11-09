@@ -22,16 +22,17 @@
           WEBPASSWORD: "pihole"
           PIHOLE_DNS_: "208.67.222.222;208.67.220.220"
           DNSMASQ_LISTENING: "local"
-          DHCP_ACTIVE: "false"
-          #DHCP_START: "192.168.2.30"
-          #DHCP_END: "192.168.2.230"
-          #DHCP_ROUTER: "192.168.2.1"
-          #PIHOLE_DOMAIN: "local"
+          DHCP_ACTIVE: "true"
+          DHCP_START: "192.168.2.30"
+          DHCP_END: "192.168.2.230"
+          DHCP_ROUTER: "192.168.2.1"
+          PIHOLE_DOMAIN: "local"
           #CAP_NET_ADMIN: "true"
           #cap_add: "NET_ADMIN"
         volumes:
           - "{{ pihole_data }}/pihole/:/etc/pihole"
           - "{{ pihole_data }}/dnsmasq.d/:/etc/dnsmasq.d/"
+        capabilities: "NET_ADMIN"
 #        network_mode: host
 #        cap_add:
 #          - NET_ADMIN
