@@ -3,7 +3,8 @@ all:
   children:
     raspberries:
       hosts:
-        monolitix.local
+        #monolitix.local
+        microcosmus.local
       vars:
         ansible_connection: ssh
         ansible_user: pi

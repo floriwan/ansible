@@ -8,11 +8,39 @@
         path: "{{ nextcloud_data }}"
         state: directory
 
+    - name: install mysql database
+      docker_container:
+        name: mysql
+        image: hypriot/rpi-mysql:latest
+        state: started
+        env:
+          MYSQL_ROOT_PASSWORD: "mypass123"
+          MYSQL_USER: "nextcloud"
+          MYSQL_PASSWORD: "nextcloud"
+
     - name: install nextcloud
       docker_container:
         name: nextcloud
         image: nextcloud
+        env:
+          NEXTCLOUD_ADMIN_USER: "admin"
+          NEXTCLOUD_ADMIN_PASSWORD: "admin"
+          MYSQL_DATABASE: "nextcloud"
+          MYSQL_USER: "root"
+          MYSQL_PASSWORD: "mypass123"
+          MYSQL_HOST: "mysql"
+        links:
+          - "mysql:mysql"
         volumes:
           - "{{ nextcloud_data }}:/var/www/html"
         published_ports:
           - "{{ nextcloud_port }}:80"
+
+#    - name: install phpmyadmin
+#      docker_container:
+#        name: phpmyadmin
+#        image: phpmyadmin/phpmyadmin:latest
+#        published_ports: 8083
+#        state: started
+#        links:
+#          - "mysql:db"
