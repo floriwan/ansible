@@ -1,0 +1,23 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: create portainer volume
+      docker_volume:
+        name: mstream_data
+
+    - name: install mstream
+      docker_container:
+        name: mstream
+        image: lscr.io/linuxserver/mstream
+        restart_policy: unless-stopped
+        published_ports:
+          - "{{ mstream_port }}:3000"
+        env:
+          TZ: "Europe/Berlin"
+          PUID: "1000"
+          PGID: "1000"
+        volumes:
+          - "/{{ mstream_music }}:/music"
+          - "mstream_data:/config"

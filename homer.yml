@@ -12,11 +12,16 @@
       docker_container:
         name: homer
         image: b4bz/homer:latest
-        state: started
+        restart_policy: unless-stopped
         published_ports:
           - "{{ homer_port }}:8080"
         volumes:
           - "{{ homer_data }}:/www/assets"
+
+    - name: copy homer app icons
+      copy:
+        src: "tools/"
+        dest: "{{ homer_data }}/tools/"
 
     - name: copy homer dashboard
       ansible.builtin.copy:

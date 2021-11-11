@@ -1,0 +1,37 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+  - name: create searx data directory
+    file:
+      path: "{{ searx_data }}"
+      state: directory
+
+  - name: clone searx git repo
+    ansible.builtin.git:
+      repo: https://github.com/searx/searx.git
+      dest: "{{ searx_data }}/"
+      separate_git_dir: /searx
+
+  - name: build searx container
+    docker_image:
+      name: rpi_searx:v0.1
+      source: build
+      build:
+        path: "{{ searx_data}}"
+        #source: build
+      #state: present
+
+
+  - name: install searx
+    docker_container:
+      name: searx
+      image: searx/searx:latest
+      restart_policy: unless-stopped
+      published_ports:
+        - "{{ searx_port }}:8080"
+      volumes:
+        - "{{ searx_data }}:/etc/searx"
+      env:
+        BASE_URL: "http://192.168.2.6:{{ searx_port }}"
