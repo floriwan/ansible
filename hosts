@@ -21,3 +21,6 @@ all:
         searx_port: 8083
         mstream_port: 8084
         mstream_music: /nas/music
+        podgrab_port: 8085
+        podgrab_data: /data/podgrab
+        podgrab_podcasts: /nas/music/podcast

@@ -1,0 +1,20 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: create podgrab directory
+      file:
+        path: "{{ podgrab_data }}"
+        state: directory
+
+    - name: install podgrab
+      docker_container:
+        name: podgrab
+        image: akhilrex/podgrab
+        restart_policy: unless-stopped
+        published_ports:
+          - "{{ podgrab_port }}:8080"
+        volumes:
+          - "{{ podgrab_data }}:/config"
+          - "{{ podgrab_podcasts }}:/assets"
