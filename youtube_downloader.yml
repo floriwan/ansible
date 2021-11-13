@@ -1,0 +1,23 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: install youtube downloader
+      docker_container:
+        name: youtube-downloader
+        image: tzahi12345/youtubedl-material:latest
+        restart_policy: unless-stopped
+        env: 
+            ALLOW_CONFIG_MUTATIONS: 'true'
+            PUID: "1000"
+            PGID: "1000"
+        published_ports:
+          - "{{ yt_downloader_port }}:17442"
+        volumes:
+          - "{{ yt_downloader_data }}/appdata:/app/appdata"
+          - "{{ yt_downloader_data }}/audio:/app/audio"
+          - "{{ yt_downloader_data }}/video:/app/video"
+          - "{{ yt_downloader_data }}/subscriptions:/app/subscriptions"
+          - "{{ yt_downloader_data }}/users:/app/users"
+

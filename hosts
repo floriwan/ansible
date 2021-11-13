@@ -24,3 +24,5 @@ all:
         podgrab_port: 8085
         podgrab_data: /data/podgrab
         podgrab_podcasts: /nas/music/podcast
+        yt_downloader_port: 8086
+        yt_downloader_data: /nas/music/yt-dl
