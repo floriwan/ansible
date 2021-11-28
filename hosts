@@ -29,5 +29,8 @@ all:
         cadvisor_port: 8087
         openspeedtest_port1: 8088
         openspeedtest_port2: 8089
+        navidrome_data: /data/navidrome
+        navidrome_port: 8090
+
 
         

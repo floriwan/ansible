@@ -3,7 +3,7 @@
 
   tasks:
 
-    - name: create portainer volume
+    - name: create mstream volume
       docker_volume:
         name: mstream_data
 
