@@ -5,7 +5,7 @@
 
     - name: install openspeedtest
       docker_container:
-        nameopenspeedtest
+        name: openspeedtest
         image: openspeedtest/latest
         restart_policy: unless-stopped
         published_ports:

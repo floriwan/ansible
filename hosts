@@ -27,4 +27,7 @@ all:
         yt_downloader_port: 8086
         yt_downloader_data: /nas/music/yt-dl
         cadvisor_port: 8087
+        openspeedtest_port1: 8088
+        openspeedtest_port2: 8089
+
         
