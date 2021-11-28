@@ -1,0 +1,36 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+#    - name: create podgrab directory
+#      file:
+#        path: "{{ navidrome_data }}"
+#        state: directory
+
+
+    - name: create navidrom volume
+      docker_volume:
+        name: navidrome_data
+
+
+    - name: install navidrome
+      docker_container:
+        name: navidrome
+#        user: 1000:1000
+        image: deluan/navidrome:latest
+        restart_policy: unless-stopped
+        published_ports:
+          - "{{ navidrome_port }}:4533"
+        volumes:
+          - "navidrome_data:/data"
+          - "/{{ mstream_music }}:/music:ro"
+        env:
+#          PUID: "1000"
+#          PGID: "1000"
+          ND_SCANSCHEDULE: "1h"
+          ND_LOGLEVEL: "info"  
+          ND_SESSIONTIMEOUT: "24h"
+          ND_BASEURL: ""
+
+
