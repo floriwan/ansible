@@ -26,3 +26,5 @@ all:
         podgrab_podcasts: /nas/music/podcast
         yt_downloader_port: 8086
         yt_downloader_data: /nas/music/yt-dl
+        cadvisor_port: 8087
+        

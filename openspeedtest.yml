@@ -1,0 +1,13 @@
+- hosts: raspberries
+  become: yes
+
+  tasks:
+
+    - name: install openspeedtest
+      docker_container:
+        nameopenspeedtest
+        image: openspeedtest/latest
+        restart_policy: unless-stopped
+        published_ports:
+          - "{{ openspeedtest_port1 }}:3000"
+          - "{{ openspeedtest_port2 }}:3001"
